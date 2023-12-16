@@ -2,19 +2,23 @@ name: CI
 
 on:
   push:
-    branches:
-      - dev
+    branches: ["dev"]
 
 jobs:
-  test:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Install Dependencies
+      - name: Estableciendo version mas reciente de node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "16"
+
+      - name: Instalando dependencias
         run: npm install
 
-      - name: Run Tests
+      - name: Realizando pruebas unitarias
         run: npm test
